@@ -1,6 +1,5 @@
 import express from "express"
 import cors from "cors"
-// import * as data from "./sample-data.js"
 import sequelize from "sequelize"
 import { Restaurant, Review, User } from "./models.js"
 
@@ -12,7 +11,7 @@ app.get("/restaurants", async (req, res) => {
   const offset = +req.query.offset || 0
   const restaurants = await Restaurant.findAndCountAll({
     attributes: {
-      includes: [
+      include: [
         [
           sequelize.literal(
             `(SELECT COUNT(*) FROM reviews AS r WHERE r.restaurant_id = restaurant.id)`
@@ -21,7 +20,7 @@ app.get("/restaurants", async (req, res) => {
         ],
       ],
     },
-    includes: { model: Review, limit: 3, include: { model: User } },
+    include: { model: Review, limit: 3, include: { model: User } },
     order: [[sequelize.literal("review_count"), "DESC"]],
     limit,
     offset,
