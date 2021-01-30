@@ -42,9 +42,7 @@ app.get("/restaurants/:restaurantId/reviews", async (req, res) => {
   const restaurantId = +req.params.restaurantId
   const limit = +req.query.limit || 5
   const offset = +req.query.offset || 0
-  const restaurant = data.restaurants.find(
-    (restaurant) => restaurant.id === restaurantId
-  )
+  const restaurant = await Restaurant.findByPk(restaurantId)
   if (!restaurant) {
     res.status(404).send("not found")
     return
