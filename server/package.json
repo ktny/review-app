@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "deploy": "git subtree push --prefix server/ heroku master"
   },
   "keywords": [],
   "author": "",
